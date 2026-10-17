@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Kelime &amp; İşlem</title>
+  <meta name="description" content="8 harf ve bir jokerle kelime türet, 6 sayıyla hedefe ulaş. 4 turluk sade bir zeka oyunu.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="./" aria-label="Kelime ve İşlem">Kelime<span>&amp;</span>İşlem</a>
+    <ol class="dots" id="dots" aria-label="Turlar">
+      <li data-r="0">K</li><li data-r="1">İ</li><li data-r="2">K</li><li data-r="3">İ</li>
+    </ol>
+    <div class="total">Puan <b id="total">0</b></div>
+  </header>
+
+  <main>
+    <!-- Başlangıç -->
+    <section class="screen" id="screen-start">
+      <h1>Kelime &amp; İşlem</h1>
+      <p class="lead">4 tur. 2 kelime, 2 işlem.</p>
+      <ul class="rules">
+        <li><b>Kelime</b><span>8 harf ve 1 joker ile 30 saniyede en az 5 harfli, en uzun Türkçe kelimeyi türet. Puan: kelimenin harf sayısı.</span></li>
+        <li><b>İşlem</b><span>6 sayı ve dört işlemle hedef sayıya ulaş. 30 sn düşün, 15 sn içinde çözümü gir. Tam isabet 9 puan, uzaklaştıkça 1’e kadar düşer.</span></li>
+      </ul>
+      <button class="btn primary big" id="btn-start">Başla</button>
+      <p class="muted" id="best-line"></p>
+    </section>
+
+    <!-- Kelime turu -->
+    <section class="screen" id="screen-word" hidden>
+      <div class="round-title">Kelime turu <small>Harflerle en uzun kelimeyi türet</small></div>
+      <div class="timer" id="w-timer"><span class="num">30</span><div class="bar"><i></i></div></div>
+
+      <div class="answer" id="w-answer" aria-live="polite"></div>
+      <div class="msg" id="w-msg"></div>
+      <div class="rack" id="w-rack"></div>
+
+      <div class="actions">
+        <button class="btn" id="w-del" title="Geri sil (Backspace)">⌫ Sil</button>
+        <button class="btn" id="w-shuffle" title="Harfleri karıştır (Boşluk)">↻ Karıştır</button>
+        <button class="btn primary" id="w-submit" title="Gönder (Enter)">Gönder</button>
+      </div>
+      <div class="foot-row">
+        <span class="muted" id="w-best">Henüz kelime yok</span>
+        <button class="link" id="w-finish">Turu bitir</button>
+      </div>
+    </section>
+
+    <!-- İşlem turu -->
+    <section class="screen" id="screen-math" hidden>
+      <div class="round-title">İşlem turu <small id="m-sub">Hedefe ulaşmanın yolunu düşün</small></div>
+      <div class="timer" id="m-timer"><span class="num">30</span><div class="bar"><i></i></div></div>
+
+      <div class="target"><small>HEDEF</small><b id="m-target">000</b></div>
+
+      <div class="tray" id="m-given"></div>
+
+      <div id="m-think" class="think">
+        <p>Süre dolunca hesap makinesi açılır.</p>
+        <button class="btn" id="m-ready">Hazırım</button>
+      </div>
+
+      <div id="m-calc" hidden>
+        <div class="ops" id="m-ops">
+          <button class="op" data-op="+" aria-label="Topla">+</button>
+          <button class="op" data-op="−" aria-label="Çıkar">−</button>
+          <button class="op" data-op="×" aria-label="Çarp">×</button>
+          <button class="op" data-op="÷" aria-label="Böl">÷</button>
+        </div>
+        <div class="tray results" id="m-results"></div>
+        <ol class="steps" id="m-steps"></ol>
+        <div class="msg" id="m-msg"></div>
+        <div class="actions">
+          <button class="btn" id="m-undo">↶ Geri al</button>
+          <button class="btn" id="m-reset">Sıfırla</button>
+          <button class="btn primary" id="m-submit">Gönder</button>
+        </div>
+        <p class="muted center" id="m-closest"></p>
+      </div>
+    </section>
+
+    <!-- Tur özeti -->
+    <section class="screen" id="screen-summary" hidden>
+      <div id="summary"></div>
+      <button class="btn primary big" id="btn-next">Sonraki tur</button>
+    </section>
+
+    <!-- Sonuç -->
+    <section class="screen" id="screen-final" hidden>
+      <h1>Oyun bitti</h1>
+      <div class="final-score"><b id="f-total">0</b><span>puan</span></div>
+      <p class="muted center" id="f-best"></p>
+      <ul class="breakdown" id="f-list"></ul>
+      <div class="actions">
+        <button class="btn" id="btn-share">Sonucu kopyala</button>
+        <button class="btn primary" id="btn-again">Tekrar oyna</button>
+      </div>
+      <p class="msg center" id="f-msg"></p>
+    </section>
+  </main>
+
+  <!-- Joker harf seçici -->
+  <div class="picker-wrap" id="picker" hidden>
+    <div class="picker" role="dialog" aria-label="Joker harfi seç">
+      <p>Joker hangi harf olsun?</p>
+      <div class="picker-grid" id="picker-grid"></div>
+      <button class="link" id="picker-cancel">Vazgeç</button>
+    </div>
+  </div>
+
+  <script src="words.js"></script>
+  <script src="logic.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
