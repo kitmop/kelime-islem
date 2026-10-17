@@ -81,7 +81,10 @@
     throw new Error('could not build a rack');
   }
 
-  function wordScore(len) { return len; }
+  function wordScore(len) {
+    if (len == 9) return 15;
+    return len;
+   }
 
   /** a (op) b for the number round; null when the move is not allowed. */
   function applyOp(a, op, b) {
@@ -155,7 +158,7 @@
 
   /** 9 for an exact hit, one point less per step away, never below 1. */
   function numberScore(diff) {
-    return Math.max(1, 9 - diff);
+    return Math.max(0, 9 - diff);
   }
 
   const api = {
